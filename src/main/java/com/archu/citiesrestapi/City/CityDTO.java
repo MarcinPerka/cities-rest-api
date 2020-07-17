@@ -1,27 +1,16 @@
 package com.archu.citiesrestapi.City;
 
-
-import com.archu.citiesrestapi.Base.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.archu.citiesrestapi.Base.BaseDTO;
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.TextIndexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Document(collection = "cities")
 @Data
-@ToString(exclude = "id")
-public class City extends BaseEntity {
-
-    @Id
-    @JsonIgnore
-    private String id;
+public class CityDTO extends BaseDTO {
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 255, message = "Not valid name - size min 3 and max 255 characters.")

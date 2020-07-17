@@ -1,6 +1,7 @@
 package com.archu.citiesrestapi.City;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -30,14 +31,15 @@ public class CityService {
         return cityRepository.findById(id);
     }
 
-    public Mono<City> updateCity(City city) {
-        log.info("Try to update city with id {}, new params: {}", city.getId(), city.toString());
-        return cityRepository.insert(city);
+    //TODO dodanie id / wyszukanie po id / tylko nie nullowe wartosci
+    public Mono<City> updateCity(String id, City city) {
+        log.info("Try to update city with id {}", city.getId());
+        return cityRepository.save(city);
     }
 
-    public void deleteCity(String id) {
+    public Mono<Void> deleteCity(String id) {
         log.info("Try to delete city with id {}", id);
-        cityRepository.deleteById(id);
+        return cityRepository.deleteById(id);
     }
 
     public Mono<City> createCity(City city) {
