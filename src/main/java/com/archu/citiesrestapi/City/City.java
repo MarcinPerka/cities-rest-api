@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class City {
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 255, message = "Not valid name - size min 3 and max 255 characters.")
+    @TextIndexed
     private String name;
 
     @NotBlank(message = "Country code is required.")

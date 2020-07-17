@@ -14,27 +14,32 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/city")
+    @GetMapping("/cities")
     public Flux<City> getAllCities() {
         return cityService.getAllCities();
     }
 
-    @GetMapping("/city/{id}")
+    @GetMapping("/cities/search/findByName")
+    public Flux<City> getAllCitiesByNameTextSearch(@RequestParam String name) {
+        return cityService.getAllCitiesByNameTextSearch(name);
+    }
+
+    @GetMapping("/cities/{id}")
     public Mono<City> getCityById(@PathVariable String id) {
         return cityService.getCityById(id);
     }
 
-    @PutMapping("/city/{id}")
+    @PutMapping("/cities/{id}")
     public Mono<City> updateCity(@RequestBody City city) {
         return cityService.updateCity(city);
     }
 
-    @DeleteMapping("/city/{id}")
+    @DeleteMapping("/cities/{id}")
     public void deleteCity(@PathVariable String id) {
         cityService.deleteCity(id);
     }
 
-    @PostMapping("/city")
+    @PostMapping("/cities")
     public Mono<City> createCity(City city) {
         return cityService.createCity(city);
     }

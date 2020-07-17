@@ -25,19 +25,17 @@ public class FillDbRunner implements CommandLineRunner {
     }
 
     @Override
-    public void run(String...args) {
+    public void run(String... args) {
         log.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("initial_data/cities.json");
             String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            List<City> cities2Save = objectMapper.readValue(json, new TypeReference<List<City>>(){});
-            cities2Save.forEach(city -> {
-                log.info("Try to fill database with city {}", city.toString());
-                cityRepository.save(city);
-
+            List<City> cities2Save = objectMapper.readValue(json, new TypeReference<List<City>>() {
             });
-        } catch(Exception e){
+            log.info("Try to fill database with cities. Number of elements: {}", cities2Save.size());
+            cityRepository.saveAll(cities2Save);
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 

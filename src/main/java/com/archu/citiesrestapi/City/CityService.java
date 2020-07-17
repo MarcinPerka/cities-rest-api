@@ -20,6 +20,11 @@ public class CityService {
         return cityRepository.findAll();
     }
 
+    public Flux<City> getAllCitiesByNameTextSearch(String name) {
+        log.info("Try to find all cities by name text search");
+        return cityRepository.findAllByNameTextSearch(name);
+    }
+
     public Mono<City> getCityById(String id) {
         log.info("Try to find city by id {}", id);
         return cityRepository.findById(id);
