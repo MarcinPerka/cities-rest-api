@@ -1,7 +1,6 @@
 package com.archu.citiesrestapi.City;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,9 +20,9 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public Flux<City> getAllCitiesByNameTextSearch(String name) {
-        log.info("Try to find all cities by name text search");
-        return cityRepository.findAllByNameTextSearch(name);
+    public Flux<City> getAllCitiesByTextSearch(String searchText) {
+        log.info("Try to find all cities by text search");
+        return cityRepository.findAllByTextSearch(searchText);
     }
 
     public Mono<City> getCityById(String id) {

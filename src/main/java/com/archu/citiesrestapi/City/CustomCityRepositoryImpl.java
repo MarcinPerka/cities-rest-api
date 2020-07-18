@@ -14,8 +14,8 @@ public class CustomCityRepositoryImpl implements CustomCityRepository {
     }
 
     @Override
-    public Flux<City> findAllByNameTextSearch(String name) {
-        TextQuery textQuery = TextQuery.queryText(new TextCriteria().matchingAny(name)).sortByScore();
-        return mongoOperations.find(textQuery, City.class);
+    public Flux<City> findAllByTextSearch(String searchText) {
+        TextQuery textQuery = TextQuery.queryText(new TextCriteria().matchingAny(searchText)).sortByScore();
+        return mongoOperations.find(textQuery, City.class, "cities");
     }
 }

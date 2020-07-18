@@ -18,6 +18,8 @@ public class CityConverterImpl implements CityConverter {
             dto.setName(entity.getName());
             dto.setCountry(entity.getCountry());
             dto.setCoord(entity.getCoord());
+            dto.setOpenWeatherMapId(entity.getOpenWeatherMapId());
+            dto.setState(entity.getState());
         }
         return dto;
     }
@@ -28,6 +30,8 @@ public class CityConverterImpl implements CityConverter {
             entity.setName(dto.getName());
             entity.setCountry(dto.getCountry());
             entity.setCoord(dto.getCoord());
+            entity.setOpenWeatherMapId(dto.getOpenWeatherMapId());
+            entity.setState(dto.getState());
         }
         return entity;
     }
