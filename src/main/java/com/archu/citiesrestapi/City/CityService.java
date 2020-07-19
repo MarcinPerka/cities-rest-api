@@ -15,14 +15,15 @@ public class CityService {
         this.cityRepository = cityRepository;
     }
 
-    public Flux<City> getAllCities() {
+    public Flux<City> getAllCities(long page, long size) {
         log.info("Try to find all cities");
-        return cityRepository.findAll();
+        return cityRepository.findAll().skip(page * size).take(size);
     }
 
-    public Flux<City> getAllCitiesByTextSearch(String searchText) {
-        log.info("Try to find all cities by text search");
-        return cityRepository.findAllByTextSearch(searchText);
+    public Flux<City> getAllCitiesByTextRegex(String searchText, long page, long size) {
+        log.info("Try to find all cities by text regex");
+        String regex = "^" + searchText;
+        return cityRepository.findCitiesByNameRegex(regex).concatWith(cityRepository.findCitiesByCountryRegex(regex)).skip(page * size).take(size);
     }
 
     public Mono<City> getCityById(String id) {

@@ -21,13 +21,16 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public Flux<CityDTO> getAllCities() {
-        return cityConverter.createFromEntities(cityService.getAllCities()).subscribeOn(Schedulers.parallel());
+    public Flux<CityDTO> getAllCities(@RequestParam(value = "page", defaultValue = "0") long page,
+                                      @RequestParam(value = "size", defaultValue = "10") long size) {
+        return cityConverter.createFromEntities(cityService.getAllCities(page, size)).subscribeOn(Schedulers.parallel());
     }
 
-    @GetMapping("/cities/search")
-    public Flux<CityDTO> getAllCitiesByTextSearch(@RequestParam String text) {
-        return cityConverter.createFromEntities(cityService.getAllCitiesByTextSearch(text)).subscribeOn(Schedulers.parallel());
+    @GetMapping("/cities/regex")
+    public Flux<CityDTO> getAllCitiesByTextRegex(@RequestParam(value = "text") String text,
+                                                 @RequestParam(value = "page", defaultValue = "0") long page,
+                                                 @RequestParam(value = "size", defaultValue = "10") long size) {
+        return cityConverter.createFromEntities(cityService.getAllCitiesByTextRegex(text, page, size)).subscribeOn(Schedulers.parallel());
     }
 
     @GetMapping("/cities/{id}")

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
@@ -31,7 +30,6 @@ public class City extends BaseEntity {
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 255, message = "Not valid name - size min 3 and max 255 characters.")
-    @TextIndexed
     private String name;
 
     @Size(max = 255, message = "Not valid name - size min 3 and max 255 characters.")
@@ -39,7 +37,6 @@ public class City extends BaseEntity {
 
     @NotBlank(message = "Country code is required.")
     @Size(min = 2, max = 2, message = "Not valid country code - size min 2 and max 2 characters.")
-    @TextIndexed
     private String country;
 
     @NotNull(message = "Coordinates are required.")
