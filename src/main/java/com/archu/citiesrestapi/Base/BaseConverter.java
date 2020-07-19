@@ -1,6 +1,6 @@
 package com.archu.citiesrestapi.Base;
 
-import reactor.core.publisher.Flux;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,12 +26,11 @@ public interface BaseConverter<D extends BaseDTO, E extends BaseEntity> {
                 .collect(Collectors.toList());
     }
 
-    default Flux<D> createFromEntities(final Flux<E> entities) {
+    default Page<D> createFromEntities(final Page<E> entities) {
         return entities.map(this::createFrom);
     }
 
-    default Flux<E> createFromDtos(final Flux<D> dtos) {
+    default Page<E> createFromDtos(final Page<D> dtos) {
         return dtos.map(this::createFrom);
     }
-
 }

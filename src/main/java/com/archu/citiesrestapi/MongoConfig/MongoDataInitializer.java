@@ -38,6 +38,6 @@ public class MongoDataInitializer implements ApplicationRunner {
         };
         List<City> cities2Save = objectMapper.readValue(json, typeReference);
         log.info("Try to fill database with cities. Number of elements: {}", cities2Save.size());
-        cityRepository.saveAll(cities2Save).subscribe(city -> log.info("City has been saved: {}", city));
+        cityRepository.saveAll(cities2Save);
     }
 }

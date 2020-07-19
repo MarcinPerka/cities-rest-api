@@ -1,9 +1,16 @@
 package com.archu.citiesrestapi.City;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -15,35 +22,21 @@ public class CityService {
         this.cityRepository = cityRepository;
     }
 
-    public Flux<City> getAllCities(long page, long size) {
+    public Page<City> getAllCities(int page, int size) {
         log.info("Try to find all cities");
-        return cityRepository.findAll().skip(page * size).take(size);
+        return cityRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC,"name"));
     }
 
-    public Flux<City> getAllCitiesByTextRegex(String searchText, long page, long size) {
+    public List<City> getAllCitiesByTextRegex(String searchText, int size) {
         log.info("Try to find all cities by text regex");
         String regex = "^" + searchText;
-        return cityRepository.findCitiesByNameRegex(regex).concatWith(cityRepository.findCitiesByCountryRegex(regex)).skip(page * size).take(size);
+        Pageable pageable = PageRequest.of(0, size, Sort.Direction.ASC,"name");
+        return Stream.of(cityRepository.findCitiesByNameRegex(regex, pageable), cityRepository.findCitiesByCountryRegex(regex, pageable))
+                .flatMap(x -> x).skip(size).limit(size).collect(Collectors.toList());
     }
 
-    public Mono<City> getCityById(String id) {
+    public Optional<City> getCityById(String id) {
         log.info("Try to find city by id {}", id);
         return cityRepository.findById(id);
-    }
-
-    //TODO dodanie id / wyszukanie po id / tylko nie nullowe wartosci
-    public Mono<City> updateCity(String id, City city) {
-        log.info("Try to update city with id {}", city.getId());
-        return cityRepository.save(city);
-    }
-
-    public Mono<Void> deleteCity(String id) {
-        log.info("Try to delete city with id {}", id);
-        return cityRepository.deleteById(id);
-    }
-
-    public Mono<City> createCity(City city) {
-        log.info("Try to save city {}", city.toString());
-        return cityRepository.save(city);
     }
 }

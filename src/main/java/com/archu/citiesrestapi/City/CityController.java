@@ -1,11 +1,9 @@
 package com.archu.citiesrestapi.City;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,35 +19,19 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public Flux<CityDTO> getAllCities(@RequestParam(value = "page", defaultValue = "0") long page,
-                                      @RequestParam(value = "size", defaultValue = "10") long size) {
-        return cityConverter.createFromEntities(cityService.getAllCities(page, size)).subscribeOn(Schedulers.parallel());
+    public Page<CityDTO> getAllCities(@RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "size", defaultValue = "10") int size) {
+        return cityConverter.createFromEntities(cityService.getAllCities(page, size));
     }
 
     @GetMapping("/cities/regex")
-    public Flux<CityDTO> getAllCitiesByTextRegex(@RequestParam(value = "text") String text,
-                                                 @RequestParam(value = "page", defaultValue = "0") long page,
-                                                 @RequestParam(value = "size", defaultValue = "10") long size) {
-        return cityConverter.createFromEntities(cityService.getAllCitiesByTextRegex(text, page, size)).subscribeOn(Schedulers.parallel());
+    public List<CityDTO> getAllCitiesByTextRegex(@RequestParam(value = "text") String text,
+                                                 @RequestParam(value = "size", defaultValue = "10") int size) {
+        return cityConverter.createFromEntities(cityService.getAllCitiesByTextRegex(text, size));
     }
 
     @GetMapping("/cities/{id}")
-    public Mono<CityDTO> getCityById(@PathVariable String id) {
-        return cityService.getCityById(id).map(cityConverter::createFrom).subscribeOn(Schedulers.parallel());
-    }
-
-    @PutMapping("/cities/{id}")
-    public Mono<CityDTO> updateCity(@PathVariable String id, @RequestBody @Valid CityDTO cityDTO) {
-        return cityService.updateCity(id, cityConverter.createFrom(cityDTO)).map(cityConverter::createFrom).subscribeOn(Schedulers.parallel());
-    }
-
-    @DeleteMapping("/cities/{id}")
-    public Mono<Void> deleteCity(@PathVariable String id) {
-        return cityService.deleteCity(id).subscribeOn(Schedulers.parallel());
-    }
-
-    @PostMapping("/cities")
-    public Mono<CityDTO> createCity(@RequestBody @Valid CityDTO cityDTO) {
-        return cityService.createCity(cityConverter.createFrom(cityDTO)).map(cityConverter::createFrom).subscribeOn(Schedulers.parallel());
+    public Optional<CityDTO> getCityById(@PathVariable String id) {
+        return cityService.getCityById(id).map(cityConverter::createFrom);
     }
 }

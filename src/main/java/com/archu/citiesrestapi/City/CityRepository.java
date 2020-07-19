@@ -1,16 +1,18 @@
 package com.archu.citiesrestapi.City;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Flux;
+import org.springframework.data.domain.Pageable;
+
+import java.util.stream.Stream;
 
 @Repository
-public interface CityRepository extends ReactiveMongoRepository<City, String> {
+public interface CityRepository extends MongoRepository<City, String> {
 
     @Query("{ 'name': { $regex: ?0,$options:'i'} }")
-    Flux<City> findCitiesByNameRegex(String regexString);
+    Stream<City> findCitiesByNameRegex(String regexString, Pageable pageable);
 
     @Query("{ 'country': { $regex: ?0,$options:'i'} }")
-    Flux<City> findCitiesByCountryRegex(String regexString);
+    Stream<City> findCitiesByCountryRegex(String regexString, Pageable pageable);
 }
