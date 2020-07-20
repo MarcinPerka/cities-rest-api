@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 @Repository
 public interface CityRepository extends MongoRepository<City, String> {
 
-    @Query("{ 'name': { $regex: ?0,$options:'i'} }")
+    @Query("{ 'name': { $regex: ?0,$options:'ims'} }")
     Stream<City> findCitiesByNameRegex(String regexString, Pageable pageable);
 
-    @Query("{ 'country': { $regex: ?0,$options:'i'} }")
+    @Query("{ 'country': { $regex: ?0,$options:'ims'} }")
     Stream<City> findCitiesByCountryRegex(String regexString, Pageable pageable);
 }

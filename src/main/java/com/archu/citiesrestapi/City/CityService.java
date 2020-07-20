@@ -28,11 +28,11 @@ public class CityService {
     }
 
     public List<City> getAllCitiesByTextRegex(String searchText, int size) {
-        log.info("Try to find all cities by text regex");
-        String regex = "^" + searchText;
-        Pageable pageable = PageRequest.of(0, size, Sort.Direction.ASC,"name");
+        String regex = "^" + searchText+".*";
+        log.info("Try to find all cities by text regex {}", regex);
+        Pageable pageable = PageRequest.of(0, size);
         return Stream.of(cityRepository.findCitiesByNameRegex(regex, pageable), cityRepository.findCitiesByCountryRegex(regex, pageable))
-                .flatMap(x -> x).skip(size).limit(size).collect(Collectors.toList());
+                .flatMap(x -> x).limit(size).collect(Collectors.toList());
     }
 
     public Optional<City> getCityById(String id) {
