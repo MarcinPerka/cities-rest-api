@@ -16,7 +16,6 @@ public class CityDTO extends BaseDTO {
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 255, message = "Not valid name - size min 3 and max 255 characters.")
-    @TextIndexed
     private String name;
 
     @NotEmpty(message= "OpenWeatherMap Id is required.")
