@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.MongoConfig;
+package com.archu.citiesrestapi.mongoconfig;
 
 import com.archu.citiesrestapi.city.*;
 import com.fasterxml.jackson.core.type.TypeReference;
