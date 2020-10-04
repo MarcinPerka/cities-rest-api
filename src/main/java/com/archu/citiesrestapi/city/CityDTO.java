@@ -1,9 +1,8 @@
-package com.archu.citiesrestapi.City;
+package com.archu.citiesrestapi.city;
 
-import com.archu.citiesrestapi.Base.BaseDTO;
+import com.archu.citiesrestapi.base.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

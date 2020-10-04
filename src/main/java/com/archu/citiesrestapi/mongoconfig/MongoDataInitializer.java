@@ -1,6 +1,6 @@
 package com.archu.citiesrestapi.MongoConfig;
 
-import com.archu.citiesrestapi.City.*;
+import com.archu.citiesrestapi.city.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

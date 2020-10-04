@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.City;
+package com.archu.citiesrestapi.city;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

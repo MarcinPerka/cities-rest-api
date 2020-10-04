@@ -1,7 +1,7 @@
-package com.archu.citiesrestapi.City;
+package com.archu.citiesrestapi.city;
 
 
-import com.archu.citiesrestapi.Base.BaseEntity;
+import com.archu.citiesrestapi.base.BaseEntity;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;

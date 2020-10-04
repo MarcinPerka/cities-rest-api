@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.City;
+package com.archu.citiesrestapi.city;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

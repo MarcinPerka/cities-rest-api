@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.Base;
+package com.archu.citiesrestapi.base;
 
 import org.springframework.data.domain.Page;
 

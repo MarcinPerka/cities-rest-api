@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.Base;
+package com.archu.citiesrestapi.base;
 
 import java.io.Serializable;
 

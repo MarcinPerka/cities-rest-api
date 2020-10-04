@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.City;
+package com.archu.citiesrestapi.city;
 
 import org.springframework.stereotype.Component;
 
