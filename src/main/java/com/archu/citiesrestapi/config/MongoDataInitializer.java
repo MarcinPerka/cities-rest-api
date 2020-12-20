@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.mongoconfig;
+package com.archu.citiesrestapi.config;
 
 import com.archu.citiesrestapi.city.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,7 +30,7 @@ public class MongoDataInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args.getSourceArgs()));
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("initial_data/city.list.json");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("initial_data/cities.json");
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<CityDTO>> typeReference = new TypeReference<List<CityDTO>>() {
