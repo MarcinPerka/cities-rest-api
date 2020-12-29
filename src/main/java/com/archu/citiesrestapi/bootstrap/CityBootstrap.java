@@ -1,4 +1,4 @@
-package com.archu.citiesrestapi.config;
+package com.archu.citiesrestapi.bootstrap;
 
 import com.archu.citiesrestapi.city.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,12 +15,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Configuration
 @Slf4j
-@ConditionalOnProperty(prefix = "mongo", value = "fill-db", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "mongo", value = "city-bootstrap", havingValue = "true", matchIfMissing = true)
 @AllArgsConstructor
-public class MongoDataInitializer implements ApplicationRunner {
+public class CityBootstrap implements ApplicationRunner {
 
 
     private final CityRepository cityRepository;
@@ -29,11 +30,10 @@ public class MongoDataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args.getSourceArgs()));
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("initial_data/cities.json");
-        String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        String json = IOUtils.toString(Objects.requireNonNull(inputStream), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<CityDTO>> typeReference = new TypeReference<List<CityDTO>>() {
+        TypeReference<List<CityDTO>> typeReference = new TypeReference<>() {
         };
         List<CityDTO> citiesDto2Save = objectMapper.readValue(json, typeReference);
         log.info("Try to fill database with cities. Number of elements: {}", citiesDto2Save.size());

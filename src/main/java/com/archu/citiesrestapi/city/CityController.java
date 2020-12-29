@@ -17,9 +17,9 @@ public class CityController {
     private final CityConverter cityConverter;
 
     @GetMapping("/cities")
-    public Page<CityDTO> getAllCities(@RequestParam(value = "page", defaultValue = "0") int page,
-                                      @RequestParam(value = "size", defaultValue = "10") int size) {
-        return cityConverter.createFromEntities(cityService.getAllCities(page, size));
+    public Page<CityDTO> getCities(@RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "size", defaultValue = "10") int size) {
+        return cityConverter.createFromEntities(cityService.getCities(page, size));
     }
 
     @GetMapping("/cities/regex")
@@ -28,8 +28,8 @@ public class CityController {
         return cityConverter.createFromEntities(cityService.getAllCitiesByTextRegex(text, size));
     }
 
-    @GetMapping("/cities/{openWeatherMapId}")
-    public Optional<CityDTO> getCityByOpenWeatherMapId(@PathVariable String openWeatherMapId) {
-        return cityService.getCityByOpenWeatherMapId(openWeatherMapId).map(cityConverter::createFrom);
+    @GetMapping("/cities/{id}")
+    public Optional<CityDTO> getCity(@PathVariable String id) {
+        return cityService.getCity(id).map(cityConverter::createFrom);
     }
 }

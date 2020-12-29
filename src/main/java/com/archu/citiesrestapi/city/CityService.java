@@ -20,7 +20,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public Page<City> getAllCities(int page, int size) {
+    public Page<City> getCities(int page, int size) {
         log.info("Try to find all cities");
         return cityRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "name"));
     }
@@ -33,8 +33,8 @@ public class CityService {
                 .flatMap(x -> x).limit(size).collect(Collectors.toList());
     }
 
-    public Optional<City> getCityByOpenWeatherMapId(String openWeatherMapId) {
-        log.info("Try to find city by openWeatherMapId {}", openWeatherMapId);
-        return cityRepository.findCityByOpenWeatherMapId(openWeatherMapId);
+    public Optional<City> getCity(String id) {
+        log.info("Try to find city by id {}", id);
+        return cityRepository.findCityById(id);
     }
 }

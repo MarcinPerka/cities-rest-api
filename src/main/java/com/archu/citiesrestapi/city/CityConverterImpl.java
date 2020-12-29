@@ -15,6 +15,7 @@ public class CityConverterImpl implements CityConverter {
     public CityDTO createFrom(City entity) {
         CityDTO dto = new CityDTO();
         if(entity != null){
+            dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setCountry(entity.getCountry());
             dto.setCoord(entity.getCoord());
@@ -27,6 +28,7 @@ public class CityConverterImpl implements CityConverter {
     @Override
     public City updateEntity(City entity, CityDTO dto) {
         if (entity != null && dto != null) {
+            entity.setId(dto.getId());
             entity.setName(dto.getName());
             entity.setCountry(dto.getCountry());
             entity.setCoord(dto.getCoord());

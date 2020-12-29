@@ -18,4 +18,6 @@ public interface CityRepository extends MongoRepository<City, String> {
     Stream<City> findCitiesByCountryRegex(String regexString, Pageable pageable);
 
     Optional<City> findCityByOpenWeatherMapId(String openWeatherMapId);
+
+    Optional<City> findCityById(String id);
 }
