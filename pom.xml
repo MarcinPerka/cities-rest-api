@@ -15,11 +15,9 @@
     <description>Cities rest api for weather app</description>
 
     <properties>
-        <java.version>12</java.version>
+        <java.version>11</java.version>
         <commons-io>2.6</commons-io>
     </properties>
-
-
 
     <dependencies>
         <dependency>
