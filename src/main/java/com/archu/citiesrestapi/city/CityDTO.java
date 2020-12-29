@@ -3,6 +3,7 @@ package com.archu.citiesrestapi.city;
 import com.archu.citiesrestapi.base.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CityDTO extends BaseDTO {
 
@@ -17,7 +19,7 @@ public class CityDTO extends BaseDTO {
     @Size(min = 3, max = 255, message = "Not valid name - size min 3 and max 255 characters.")
     private String name;
 
-    @NotEmpty(message= "OpenWeatherMap Id is required.")
+    @NotEmpty(message = "OpenWeatherMap Id is required.")
     @JsonProperty("id")
     private String openWeatherMapId;
 

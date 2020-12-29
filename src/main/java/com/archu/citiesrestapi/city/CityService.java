@@ -22,19 +22,19 @@ public class CityService {
 
     public Page<City> getAllCities(int page, int size) {
         log.info("Try to find all cities");
-        return cityRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC,"name"));
+        return cityRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "name"));
     }
 
     public List<City> getAllCitiesByTextRegex(String searchText, int size) {
-        String regex = "^" + searchText+".*";
+        String regex = "^" + searchText + ".*";
         log.info("Try to find all cities by text regex {}", regex);
         Pageable pageable = PageRequest.of(0, size);
         return Stream.of(cityRepository.findCitiesByNameRegex(regex, pageable), cityRepository.findCitiesByCountryRegex(regex, pageable))
                 .flatMap(x -> x).limit(size).collect(Collectors.toList());
     }
 
-    public Optional<City> getCityById(String id) {
-        log.info("Try to find city by id {}", id);
-        return cityRepository.findById(id);
+    public Optional<City> getCityByOpenWeatherMapId(String openWeatherMapId) {
+        log.info("Try to find city by openWeatherMapId {}", openWeatherMapId);
+        return cityRepository.findCityByOpenWeatherMapId(openWeatherMapId);
     }
 }
